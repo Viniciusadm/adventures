@@ -14,4 +14,13 @@ class SiteController extends Controller
             'adventures' => $adventures,
         ]);
     }
+
+    public function play(string $slug): Response
+    {
+        $adventure = Adventure::query()->where('slug', $slug)->firstOrFail();
+
+        return inertia('Play', [
+            'adventure' => $adventure,
+        ]);
+    }
 }
