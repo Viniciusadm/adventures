@@ -31,6 +31,10 @@ class ContentHelper
             $nextContent = $firstContent->nextContent;
 
             for ($i = 0; $i < 10; $i++) {
+                if (!$nextContent) {
+                    break;
+                }
+
                 $contents[] = $nextContent;
 
                 if ($nextContent->nextContent) {
