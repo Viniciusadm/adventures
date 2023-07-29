@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Models\Content;
+use App\Models\Option;
 
 class ContentHelper
 {
@@ -27,11 +28,20 @@ class ContentHelper
 
         if ($firstContent) {
             $contents = [$firstContent];
-
             $nextContent = $firstContent->nextContent;
-            while ($nextContent && count($contents) < 6) {
+
+            for ($i = 0; $i < 10; $i++) {
                 $contents[] = $nextContent;
-                $nextContent = $nextContent->nextContent;
+
+                if ($nextContent->nextContent) {
+                    $nextContent = $nextContent->nextContent;
+                } else if ($nextContent->options->count()) {
+                    $options = Option::query()->where('content_id', $nextContent->id)->with('nextContent')->get();
+                    $contents[$i + 1]['options'] = $options;
+                    break;
+                } else {
+                    break;
+                }
             }
         }
 

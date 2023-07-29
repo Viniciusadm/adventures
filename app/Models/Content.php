@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Content
@@ -16,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $body
  * @property Adventure $adventure
  * @property Content $nextContent
+ * @property Option[] $options
  */
 class Content extends Model
 {
@@ -35,5 +37,10 @@ class Content extends Model
     public function nextContent(): BelongsTo
     {
         return $this->belongsTo(Content::class);
+    }
+
+    public function options(): HasMany
+    {
+        return $this->hasMany(Option::class);
     }
 }
