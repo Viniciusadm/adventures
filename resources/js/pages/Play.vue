@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import Layout from "@/layouts/Layout.vue";
 import { PropType } from "vue";
-import { Adventure } from "@/types";
+import { Adventure, Content } from "@/types";
 
 defineProps({
     adventure: {
         type: Object as PropType<Adventure>,
+        required: true,
+    },
+    contents: {
+        type: Array as PropType<Content[]>,
         required: true,
     },
 });
@@ -18,7 +22,13 @@ defineProps({
 
             <div class="mb-4">
                 <p class="mb-2 md:text-lg">
-                    Description: {{ adventure.description }}
+                    <span class="font-bold">Description:</span> {{ adventure.description }}
+                </p>
+            </div>
+
+            <div class="mb-4">
+                <p class="mb-2 md:text-lg" v-for="content in contents" :key="content.id">
+                    {{ content.body }}
                 </p>
             </div>
         </div>

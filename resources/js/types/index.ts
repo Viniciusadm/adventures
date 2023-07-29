@@ -4,3 +4,10 @@ export type Adventure = {
     description: string;
     slug: string;
 }
+
+export type Content = {
+    id: number;
+    adventure_id: number;
+    next_content_id: number;
+    body: string;
+}
