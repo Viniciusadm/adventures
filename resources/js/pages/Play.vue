@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Layout from "@/layouts/Layout.vue";
-import { PropType, ref, Ref } from "vue";
+import { PropType, ref, Ref, nextTick } from "vue";
 import { Adventure, Content } from "@/types";
 import axios from "axios";
 import Message from "@/components/Message.vue";
@@ -37,6 +37,45 @@ const next = () => {
     const last = showing.value[showing.value.length - 1];
 
     inOption.value = !!(last.options && last.options.length);
+
+    if (inOption.value) {
+        nextTick(() => {
+            requestAnimationFrame(scroll);
+        });
+    } else {
+        requestAnimationFrame(scroll);
+    }
+};
+
+const scroll = () => {
+    const scrollDiv = document.querySelector("#scroll");
+
+    if (scrollDiv) {
+        const targetScrollTop = scrollDiv.scrollHeight - scrollDiv.clientHeight;
+        smoothScroll(scrollDiv, targetScrollTop, 300);
+    }
+};
+
+const smoothScroll = (element, targetScrollTop, duration) => {
+    const startScrollTop = element.scrollTop;
+    const startTime = performance.now();
+
+    const scrollStep = (timestamp) => {
+        const currentTime = timestamp - startTime;
+        const scrollDistance = targetScrollTop - startScrollTop;
+
+        element.scrollTop = startScrollTop + scrollDistance * easeInOutQuad(currentTime / duration);
+
+        if (currentTime < duration) {
+            requestAnimationFrame(scrollStep);
+        }
+    };
+
+    requestAnimationFrame(scrollStep);
+};
+
+const easeInOutQuad = (t) => {
+    return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 };
 </script>
 
@@ -45,19 +84,13 @@ const next = () => {
         <div class="flex flex-col h-[85vh] overflow-y-auto p-4" id="scroll">
             <h1 class="text-2xl md:text-3xl font-bold mb-4">{{ adventure.title }}</h1>
 
-            <div class="mb-4">
-                <p class="mb-2 md:text-lg">
-                    <span class="font-bold">Description:</span> {{ adventure.description }}
-                </p>
-            </div>
-
             <div>
                 <div
                     v-for="(content, index) in showing"
                     :key="content.id"
                     class="pb-4"
                 >
-                    <Message :content="content" />
+                    <Message :content="content"/>
 
                     <div
                         v-if="content.options && content.options.length && showing.length - 1 === index"
