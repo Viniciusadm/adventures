@@ -21,4 +21,5 @@ Route::post('/logar', [AuthController::class, 'logar'])->name('logar');
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/', [SiteController::class, 'index'])->name('home');
     Route::get('/play/{slug}', [SiteController::class, 'play'])->name('play');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });

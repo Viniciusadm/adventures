@@ -31,4 +31,10 @@ class AuthController extends Controller
 
         return redirect()->back()->withErrors(['email' => 'Email ou senha inválidos.']);
     }
+
+    public function logout(): RedirectResponse
+    {
+        auth('web')->logout();
+        return redirect()->route('login');
+    }
 }
