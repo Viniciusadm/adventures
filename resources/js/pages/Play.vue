@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { PropType, ref, Ref, nextTick } from "vue";
 import { Adventure, Content } from "@/types";
+import { Head } from '@inertiajs/vue3';
 import axios from "axios";
 import Message from "@/components/Message.vue";
 
