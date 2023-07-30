@@ -93,44 +93,42 @@ const easeInOutQuad = (t) => {
     <Head>
         <title>{{ adventure.title }}</title>
     </Head>
-    <Layout>
-        <div class="flex flex-col h-[85vh] overflow-y-auto p-4" id="scroll">
-            <h1 class="text-2xl md:text-3xl font-bold mb-4">{{ adventure.title }}</h1>
+    <div class="flex flex-col h-[85vh] overflow-y-auto p-4" id="scroll">
+        <h1 class="text-2xl md:text-3xl font-bold mb-4">{{ adventure.title }}</h1>
 
-            <div>
-                <div
-                    v-for="content in showing"
-                    :key="content.id"
-                    class="pb-4"
-                >
-                    <Message :content="content"/>
-                </div>
+        <div>
+            <div
+                v-for="content in showing"
+                :key="content.id"
+                class="pb-4"
+            >
+                <Message :content="content"/>
             </div>
         </div>
-        <div
-            class="flex justify-end border-t-2 border-black pt-4 pe-4"
-            v-if="!showOptions"
+    </div>
+    <div
+        class="flex justify-end border-t-2 border-black pt-4 pe-4"
+        v-if="!showOptions"
+    >
+        <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
+            @click="next"
+            :disabled="inOption"
+            v-if="showing.length !== data.length"
         >
-            <button
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
-                @click="next"
-                :disabled="inOption"
-                v-if="showing.length !== data.length"
-            >
-                Próximo
-            </button>
-        </div>
-        <div
-            class="grid grid-cols-2 gap-2 p-2 border-t-2 border-black"
-            v-if="showOptions">
-            <button
-                v-for="option in options"
-                :key="option.id"
-                @click="getNextContent(adventure.id, option.next_content_id)"
-                class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
-            >
-                {{ option.label }}
-            </button>
-        </div>
-    </Layout>
+            Próximo
+        </button>
+    </div>
+    <div
+        class="grid grid-cols-2 gap-2 p-2 border-t-2 border-black"
+        v-if="showOptions">
+        <button
+            v-for="option in options"
+            :key="option.id"
+            @click="getNextContent(adventure.id, option.next_content_id)"
+            class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
+        >
+            {{ option.label }}
+        </button>
+    </div>
 </template>

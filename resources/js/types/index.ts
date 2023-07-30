@@ -19,3 +19,10 @@ export type Content = {
     type: 'self' | 'character' | 'narrator';
     options: Option[];
 }
+
+export type User = {
+    id: number;
+    name: string;
+    email: string;
+    role: 'user' | 'admin';
+}

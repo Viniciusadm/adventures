@@ -21,7 +21,7 @@ const submit = () => {
 </script>
 
 <template>
-    <Layout>
+    <div class="w-full max-w-[425px] mx-auto h-screen bg-gray-100">
         <div class="flex flex-col items-center justify-center h-full">
             <h1 class="text-3xl font-bold text-gray-800">Login</h1>
             <form class="w-full mt-8 px-4" @submit.prevent="submit">
@@ -64,5 +64,5 @@ const submit = () => {
                 </button>
             </form>
         </div>
-    </Layout>
+    </div>
 </template>
