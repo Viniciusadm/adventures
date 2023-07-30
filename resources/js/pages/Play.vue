@@ -92,7 +92,7 @@ const easeInOutQuad = (t) => {
     <Head>
         <title>{{ adventure.title }}</title>
     </Head>
-    <div class="flex flex-col h-[85vh] overflow-y-auto p-4" id="scroll">
+    <div class="flex flex-col h-[77vh] overflow-y-auto p-4" id="scroll">
         <h1 class="text-2xl md:text-3xl font-bold mb-4">{{ adventure.title }}</h1>
 
         <div>
@@ -106,11 +106,11 @@ const easeInOutQuad = (t) => {
         </div>
     </div>
     <div
-        class="flex justify-end border-t-2 border-black pt-4 pe-4"
+        class="flex flex-col justify-center items-end border-t-2 border-black h-[15vh]"
         v-if="!showOptions"
     >
         <button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50 me-5"
             @click="next"
             :disabled="inOption"
             v-if="showing.length !== data.length"
@@ -119,7 +119,7 @@ const easeInOutQuad = (t) => {
         </button>
     </div>
     <div
-        class="grid grid-cols-2 gap-2 p-2 border-t-2 border-black"
+        class="grid grid-cols-2 gap-2 p-2 border-t-2 border-black h-[15vh]"
         v-if="showOptions">
         <button
             v-for="option in options"

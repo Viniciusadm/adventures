@@ -14,7 +14,7 @@ const logout = () => {
 
 <template>
     <div class="w-full max-w-[425px] mx-auto h-screen bg-gray-100">
-        <div class="w-full h-16 flex items-center justify-between px-4">
+        <div class="w-full h-[8vh] flex items-center justify-between px-4 border-b border-gray-300">
             <div class="flex items-center">
                 <p class="mr-4">{{ user.name }}</p>
             </div>
