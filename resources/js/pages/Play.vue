@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import Layout from "@/layouts/Layout.vue";
-import { PropType } from "vue";
+import { PropType, ref, Ref } from "vue";
 import { Adventure, Content } from "@/types";
 
-defineProps({
+const props = defineProps({
     adventure: {
         type: Object as PropType<Adventure>,
         required: true,
@@ -13,6 +13,8 @@ defineProps({
         required: true,
     },
 });
+
+const data: Ref<Content[]> = ref(props.contents);
 </script>
 
 <template>
@@ -28,7 +30,7 @@ defineProps({
 
             <div class="mb-4">
                 <div
-                    v-for="content in contents"
+                    v-for="content in data"
                     :key="content.id"
                     class="border-b border-black pb-4 mb-4"
                 >
@@ -41,11 +43,15 @@ defineProps({
                             <span class="font-bold">Options:</span>
                         </p>
 
-                        <ul class="list-disc list-inside">
-                            <li v-for="option in content.options" :key="option.id">
+                        <div class="grid grid-cols-2 gap-4">
+                            <button
+                                v-for="option in content.options"
+                                :key="option.id"
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            >
                                 {{ option.label }}
-                            </li>
-                        </ul>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
