@@ -41,60 +41,58 @@ const next = () => {
 
 <template>
     <Layout>
-        <div class="p-4">
-            <div class="flex flex-col h-[85vh] overflow-y-auto" id="scroll">
-                <h1 class="text-2xl md:text-3xl font-bold mb-4">{{ adventure.title }}</h1>
+        <div class="flex flex-col h-[85vh] overflow-y-auto p-4" id="scroll">
+            <h1 class="text-2xl md:text-3xl font-bold mb-4">{{ adventure.title }}</h1>
 
-                <div class="mb-4">
-                    <p class="mb-2 md:text-lg">
-                        <span class="font-bold">Description:</span> {{ adventure.description }}
-                    </p>
-                </div>
+            <div class="mb-4">
+                <p class="mb-2 md:text-lg">
+                    <span class="font-bold">Description:</span> {{ adventure.description }}
+                </p>
+            </div>
 
-                <div>
-                    <div
-                        v-for="(content, index) in showing"
-                        :key="content.id"
-                        class="border-b border-black pb-4"
-                        :class="{
+            <div>
+                <div
+                    v-for="(content, index) in showing"
+                    :key="content.id"
+                    class="border-b border-black pb-4"
+                    :class="{
                             'mb-4': showing.length - 1 !== index,
                         }"
+                >
+                    <p class="mb-2 md:text-lg">
+                        {{ content.body }}
+                    </p>
+
+                    <div
+                        v-if="content.options && content.options.length && showing.length - 1 === index"
                     >
                         <p class="mb-2 md:text-lg">
-                            {{ content.body }}
+                            <span class="font-bold">Options:</span>
                         </p>
 
-                        <div
-                            v-if="content.options && content.options.length && showing.length - 1 === index"
-                        >
-                            <p class="mb-2 md:text-lg">
-                                <span class="font-bold">Options:</span>
-                            </p>
-
-                            <div class="grid grid-cols-2 gap-4">
-                                <button
-                                    v-for="option in content.options"
-                                    :key="option.id"
-                                    @click="getNextContent(adventure.id, option.next_content_id)"
-                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                >
-                                    {{ option.label }}
-                                </button>
-                            </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <button
+                                v-for="option in content.options"
+                                :key="option.id"
+                                @click="getNextContent(adventure.id, option.next_content_id)"
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            >
+                                {{ option.label }}
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="flex justify-end border-t-2 border-black pt-4">
-                <button
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
-                    @click="next"
-                    :disabled="inOption"
-                    v-if="showing.length !== data.length"
-                >
-                    Próximo
-                </button>
-            </div>
+        </div>
+        <div class="flex justify-end border-t-2 border-black pt-4 pe-4">
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
+                @click="next"
+                :disabled="inOption"
+                v-if="showing.length !== data.length"
+            >
+                Próximo
+            </button>
         </div>
     </Layout>
 </template>
