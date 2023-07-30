@@ -27,7 +27,6 @@ const inOption = ref(false);
 const getNextContent = (adventure_id: number, content_id: number) => {
     axios.get(`/api/contents/${adventure_id}/${content_id}`).then((response) => {
         data.value = [...data.value, ...response.data];
-        next();
     });
 };
 
@@ -54,6 +53,10 @@ const next = () => {
         });
     } else {
         requestAnimationFrame(scroll);
+    }
+
+    if (showing.value.length === (data.value.length - 3) && !inOption.value && last.next_content_id) {
+        getNextContent(props.adventure?.id, last.next_content_id);
     }
 };
 
@@ -147,7 +150,7 @@ const easeInOutQuad = (t) => {
         <button
             v-for="option in options"
             :key="option.id"
-            @click="getNextContent(adventure.id, option.next_content_id)"
+            @click="getNextContent(adventure.id, option.next_content_id); next();"
             class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
         >
             {{ option.label }}
