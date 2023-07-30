@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Layout from "@/layouts/Layout.vue";
 import { PropType, ref, Ref, nextTick } from "vue";
 import { Adventure, Content } from "@/types";
 import axios from "axios";

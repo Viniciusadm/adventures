@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Layout from "@/layouts/Layout.vue";
 import { InertiaForm, useForm } from "@inertiajs/vue3";
 import { PropType } from "vue";
 
@@ -16,7 +15,11 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post('/logar');
+    form.post('/logar', {
+        onSuccess: () => {
+            window.location.reload();
+        },
+    });
 };
 </script>
 

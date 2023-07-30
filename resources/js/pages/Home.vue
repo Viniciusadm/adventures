@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Layout from "@/layouts/Layout.vue";
 import { defineProps, PropType } from "vue";
 import { Adventure } from "@/types";
 
