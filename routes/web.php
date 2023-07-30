@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logar', [AuthController::class, 'logar'])->name('logar');
 
 Route::get('/', [SiteController::class, 'index'])->name('home');
 Route::get('/play/{slug}', [SiteController::class, 'play'])->name('play');
