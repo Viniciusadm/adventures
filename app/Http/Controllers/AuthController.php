@@ -9,8 +9,12 @@ use Inertia\Response;
 class AuthController extends Controller
 {
 
-    public function login(): Response
+    public function login(): Response|RedirectResponse
     {
+        if (auth()->check()) {
+            return redirect()->route('home');
+        }
+
         return inertia('Login');
     }
 
