@@ -90,6 +90,9 @@ const easeInOutQuad = (t) => {
 </script>
 
 <template>
+    <Head>
+        <title>{{ adventure.title }}</title>
+    </Head>
     <Layout>
         <div class="flex flex-col h-[85vh] overflow-y-auto p-4" id="scroll">
             <h1 class="text-2xl md:text-3xl font-bold mb-4">{{ adventure.title }}</h1>
