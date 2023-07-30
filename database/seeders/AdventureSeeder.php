@@ -77,7 +77,7 @@ class AdventureSeeder extends Seeder
             ->where('adventure_id', $adventureId)
             ->count();
 
-        if ($count > 30) {
+        if ($count > 100) {
             return;
         }
 
