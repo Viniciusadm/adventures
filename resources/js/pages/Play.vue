@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.vue";
 import { PropType, ref, Ref } from "vue";
 import { Adventure, Content } from "@/types";
+import axios from "axios";
 
 const props = defineProps({
     adventure: {
@@ -15,6 +16,12 @@ const props = defineProps({
 });
 
 const data: Ref<Content[]> = ref(props.contents);
+
+const getNextContent = (adventure_id: number, content_id: number) => {
+    axios.get(`/api/contents/${adventure_id}/${content_id}`).then((response) => {
+        data.value = [...data.value, ...response.data];
+    });
+};
 </script>
 
 <template>
@@ -47,6 +54,7 @@ const data: Ref<Content[]> = ref(props.contents);
                             <button
                                 v-for="option in content.options"
                                 :key="option.id"
+                                @click="getNextContent(adventure.id, option.next_content_id)"
                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                             >
                                 {{ option.label }}

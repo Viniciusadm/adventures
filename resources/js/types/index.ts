@@ -8,6 +8,7 @@ export type Adventure = {
 export type Option = {
     id: number;
     label: string;
+    next_content_id: number;
 }
 
 export type Content = {
