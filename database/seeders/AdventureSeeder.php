@@ -69,7 +69,7 @@ class AdventureSeeder extends Seeder
 
     private function addContentOrOption(int $adventureId, int $contentId): void
     {
-        $options = ['content', 'option', 'none', 'none', 'none', 'none'];
+        $options = ['content', 'option', 'none', 'none'];
         $sort = array_rand($options);
         $option = $options[$sort];
 
