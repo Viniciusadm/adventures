@@ -3,6 +3,7 @@ import Layout from "@/layouts/Layout.vue";
 import { PropType, ref, Ref } from "vue";
 import { Adventure, Content } from "@/types";
 import axios from "axios";
+import Message from "@/components/Message.vue";
 
 const props = defineProps({
     adventure: {
@@ -54,23 +55,14 @@ const next = () => {
                 <div
                     v-for="(content, index) in showing"
                     :key="content.id"
-                    class="border-b border-black pb-4"
-                    :class="{
-                            'mb-4': showing.length - 1 !== index,
-                        }"
+                    class="pb-4"
                 >
-                    <p class="mb-2 md:text-lg">
-                        {{ content.body }}
-                    </p>
+                    <Message :content="content" />
 
                     <div
                         v-if="content.options && content.options.length && showing.length - 1 === index"
                     >
-                        <p class="mb-2 md:text-lg">
-                            <span class="font-bold">Options:</span>
-                        </p>
-
-                        <div class="grid grid-cols-2 gap-4">
+                        <div class="grid grid-cols-2 gap-4 mt-4">
                             <button
                                 v-for="option in content.options"
                                 :key="option.id"
