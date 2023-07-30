@@ -16,5 +16,6 @@ export type Content = {
     adventure_id: number;
     next_content_id: number;
     body: string;
+    type: 'self' | 'character' | 'narrator';
     options: Option[];
 }

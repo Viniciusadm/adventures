@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('adventure_id')->constrained();
             $table->foreignId('next_content_id')->nullable()->constrained('contents');
             $table->longText('body');
+            $table->enum('type', ['narrator', 'self', 'character']);
             $table->timestamps();
         });
     }

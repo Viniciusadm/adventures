@@ -21,6 +21,7 @@ class ContentFactory extends Factory
         return [
             'adventure_id' => Adventure::query()->inRandomOrder()->first()->id,
             'body' => $this->faker->paragraph,
+            'type' => $this->faker->randomElement(['narrator', 'self', 'character']),
         ];
     }
 }

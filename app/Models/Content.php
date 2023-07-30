@@ -27,6 +27,7 @@ class Content extends Model
         'adventure_id',
         'next_content_id',
         'body',
+        'type',
     ];
 
     public function adventure(): BelongsTo
