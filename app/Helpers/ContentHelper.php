@@ -9,10 +9,10 @@ class ContentHelper
 {
     /**
      * @param int $adventureId
-     * @param int $contentId
+     * @param int|null $contentId
      * @return Content[]
      */
-    public static function get(int $adventureId, int $contentId = 0): array
+    public static function get(int $adventureId, int $contentId = null): array
     {
         $contents = [];
 
