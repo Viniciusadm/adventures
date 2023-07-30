@@ -16,7 +16,12 @@ const logout = () => {
     <div class="w-full max-w-[425px] mx-auto h-screen bg-gray-100">
         <div class="w-full h-[8vh] flex items-center justify-between px-4 border-b border-gray-300">
             <div class="flex items-center">
-                <p class="mr-4">{{ user.name }}</p>
+                <button
+                    class="mr-4"
+                    @click="router.visit('/')"
+                >
+                    {{ user.name }}
+                </button>
             </div>
             <div class="flex items-center">
                 <button @click="logout" class="text-red-500">Sair</button>
