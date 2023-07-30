@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { PropType, ref, Ref, nextTick } from "vue";
 import { Adventure, Content } from "@/types";
-import { Head } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import axios from "axios";
 import Message from "@/components/Message.vue";
 
@@ -57,6 +57,20 @@ const next = () => {
     }
 };
 
+const saveLoad = ref(false);
+
+const save = () => {
+    saveLoad.value = true;
+
+    const last = showing.value[showing.value.length - 1];
+    router.put(`/contents/${props.adventure.id}/${last.id}/save`, {}, {
+        preserveState: true,
+        onFinish: () => {
+            saveLoad.value = false;
+        },
+    });
+};
+
 const scroll = () => {
     const scrollDiv = document.querySelector("#scroll");
 
@@ -107,11 +121,19 @@ const easeInOutQuad = (t) => {
         </div>
     </div>
     <div
-        class="flex flex-col justify-center items-end border-t-2 border-black h-[15vh]"
+        class="flex justify-between items-center border-t-2 border-black h-[15vh] px-5"
         v-if="!showOptions"
     >
         <button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50 me-5"
+            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
+            @click="save"
+            :disabled="saveLoad"
+        >
+            {{ saveLoad ? 'Salvando...' : 'Salvar' }}
+        </button>
+
+        <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
             @click="next"
             :disabled="inOption"
             v-if="showing.length !== data.length"

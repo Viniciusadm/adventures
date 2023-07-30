@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+/**
+ * Class Adventure
+ * @package App\Models
+ * @property int $id
+ * @property string $title
+ * @property string $description
+ * @property string $slug
+ */
 class Adventure extends Model
 {
     use HasFactory;

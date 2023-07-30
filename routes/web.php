@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContentController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +23,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/', [SiteController::class, 'index'])->name('home');
     Route::get('/play/{slug}', [SiteController::class, 'play'])->name('play');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::put('/contents/{adventureId}/{contentId}/save', [ContentController::class, 'save'])->name('api.save');
 });
