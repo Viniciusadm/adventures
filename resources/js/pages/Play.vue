@@ -31,12 +31,22 @@ const getNextContent = (adventure_id: number, content_id: number) => {
     });
 };
 
+const showOptions = ref(false);
+const options = ref([]);
+
 const next = () => {
     showing.value = [...showing.value, data.value[showing.value.length]];
 
     const last = showing.value[showing.value.length - 1];
 
     inOption.value = !!(last.options && last.options.length);
+
+    if (last.options && last.options.length) {
+        options.value = last.options;
+        showOptions.value = true;
+    } else {
+        showOptions.value = false;
+    }
 
     if (inOption.value) {
         nextTick(() => {
@@ -86,30 +96,18 @@ const easeInOutQuad = (t) => {
 
             <div>
                 <div
-                    v-for="(content, index) in showing"
+                    v-for="content in showing"
                     :key="content.id"
                     class="pb-4"
                 >
                     <Message :content="content"/>
-
-                    <div
-                        v-if="content.options && content.options.length && showing.length - 1 === index"
-                    >
-                        <div class="grid grid-cols-2 gap-4 mt-4">
-                            <button
-                                v-for="option in content.options"
-                                :key="option.id"
-                                @click="getNextContent(adventure.id, option.next_content_id)"
-                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                            >
-                                {{ option.label }}
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-        <div class="flex justify-end border-t-2 border-black pt-4 pe-4">
+        <div
+            class="flex justify-end border-t-2 border-black pt-4 pe-4"
+            v-if="!showOptions"
+        >
             <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
                 @click="next"
@@ -117,6 +115,18 @@ const easeInOutQuad = (t) => {
                 v-if="showing.length !== data.length"
             >
                 Próximo
+            </button>
+        </div>
+        <div
+            class="grid grid-cols-2 gap-2 p-2 border-t-2 border-black"
+            v-if="showOptions">
+            <button
+                v-for="option in options"
+                :key="option.id"
+                @click="getNextContent(adventure.id, option.next_content_id)"
+                class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
+            >
+                {{ option.label }}
             </button>
         </div>
     </Layout>
