@@ -50,6 +50,7 @@ const submit = () => {
                         type="password"
                         placeholder="******************"
                         v-model="form.password"
+                        autocomplete="false"
                     />
                     <div class="text-red-500">
                         <span v-if="errors.password" v-text="errors.password" />
