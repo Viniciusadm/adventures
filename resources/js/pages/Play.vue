@@ -24,8 +24,8 @@ const showing: Ref<Content[]> = ref([
 
 const inOption = ref(false);
 
-const getNextContent = (adventure_id: number, content_id: number) => {
-    axios.get(`/api/contents/${adventure_id}/${content_id}`).then((response) => {
+const getNextContent = (adventure_id: number, content_id: number): Promise<void> => {
+    return axios.get(`/api/contents/${adventure_id}/${content_id}`).then((response) => {
         data.value = [...data.value, ...response.data];
     });
 };
@@ -55,9 +55,15 @@ const next = () => {
         requestAnimationFrame(scroll);
     }
 
-    if (showing.value.length === (data.value.length - 3) && !inOption.value && last.next_content_id) {
+    if (showing.value.length === data.value.length && !inOption.value && last.next_content_id) {
         getNextContent(props.adventure?.id, last.next_content_id);
     }
+};
+
+const choice = (adventure_id: number, next_content_id: number) => {
+    getNextContent(adventure_id, next_content_id).then(() => {
+        next();
+    });
 };
 
 const saveLoad = ref(false);
@@ -150,7 +156,7 @@ const easeInOutQuad = (t) => {
         <button
             v-for="option in options"
             :key="option.id"
-            @click="getNextContent(adventure.id, option.next_content_id); next();"
+            @click="choice(adventure.id, option.next_content_id)"
             class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
         >
             {{ option.label }}
