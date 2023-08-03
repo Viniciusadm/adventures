@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { PropType, ref, Ref, nextTick } from "vue";
-import { Adventure, Content } from "@/types";
+import { Adventure, Content, Option } from "@/types";
 import { Head, router } from '@inertiajs/vue3';
 import axios from "axios";
 import Message from "@/components/Message.vue";
@@ -31,7 +31,7 @@ const getNextContent = (adventure_id: number, content_id: number): Promise<void>
 };
 
 const showOptions = ref(false);
-const options = ref([]);
+const options: Ref<Option[]> = ref([]);
 
 const next = () => {
     showing.value = [...showing.value, data.value[showing.value.length]];
@@ -60,8 +60,15 @@ const next = () => {
     }
 };
 
-const choice = (adventure_id: number, next_content_id: number) => {
+const saveChoice = (content_id: number, option_id: number) => {
+    router.post(`/options/${content_id}/${option_id}/save`, {}, {
+        preserveState: true,
+    });
+};
+
+const choice = (adventure_id: number, content_id: number, next_content_id: number, option_id: number) => {
     getNextContent(adventure_id, next_content_id).then(() => {
+        saveChoice(content_id, option_id);
         next();
     });
 };
@@ -156,7 +163,7 @@ const easeInOutQuad = (t) => {
         <button
             v-for="option in options"
             :key="option.id"
-            @click="choice(adventure.id, option.next_content_id)"
+            @click="choice(adventure.id, option.content_id, option.next_content_id, option.id)"
             class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
         >
             {{ option.label }}

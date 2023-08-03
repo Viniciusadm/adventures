@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContentController;
+use App\Http\Controllers\OptionController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +26,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::put('/contents/{adventureId}/{contentId}/save', [ContentController::class, 'save'])->name('api.save');
+    Route::post('/options/{contentId}/{optionId}/save', [OptionController::class, 'save'])->name('api.save_option');
 });
