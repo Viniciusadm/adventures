@@ -79,7 +79,7 @@ const save = () => {
     saveLoad.value = true;
 
     const last = showing.value[showing.value.length - 1];
-    router.put(`/contents/${props.adventure.id}/${last.id}/save`, {}, {
+    router.put(`/adventures/${props.adventure.id}/${last.id}/save`, {}, {
         preserveState: true,
         onFinish: () => {
             saveLoad.value = false;
