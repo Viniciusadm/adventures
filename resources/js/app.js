@@ -5,6 +5,8 @@ import Layout from "./layouts/Layout.vue";
 const element = document.head.querySelector('meta[name="user"]');
 const user = element.content ? JSON.parse(element.content) : null;
 
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 createInertiaApp({
     resolve: name => {
         const pages = import.meta.glob('./pages/**/*.vue', { eager: true })
