@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, PropType } from "vue";
+import { PropType } from "vue";
 import { Adventure } from "@/types";
 import { router } from "@inertiajs/vue3";
 
