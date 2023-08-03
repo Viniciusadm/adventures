@@ -2,6 +2,7 @@
 import { PropType, ref } from "vue";
 import { Content } from "@/types";
 import { router } from "@inertiajs/vue3";
+import Modal from "@/components/Site/Modal.vue";
 
 const props = defineProps({
     content: {
@@ -54,30 +55,18 @@ const save = () => {
             </div>
         </div>
 
-        <div
+        <Modal
+            title="Opções"
             v-if="dropDown"
-            class="absolute top-0 right-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center"
-            @click="dropDown = !dropDown"
+            @close="dropDown = false"
         >
-            <div class="bg-white rounded-lg p-4 m-4 w-[300px]" @click.stop>
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-bold">Opções</h3>
-                    <button
-                        type="button"
-                        @click="dropDown = !dropDown"
-                    >
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </div>
-
-                <button
-                    type="button"
-                    @click="save"
-                    class="flex items-center justify-center"
-                >
-                    <i class="bi bi-bookmark-plus-fill me-2 text-blue-500"></i> Salvar mensagem
-                </button>
-            </div>
-        </div>
+            <button
+                type="button"
+                @click="save"
+                class="flex items-center justify-center"
+            >
+                <i class="bi bi-bookmark-plus-fill me-2 text-blue-500"></i> Salvar mensagem
+            </button>
+        </Modal>
     </div>
 </template>
