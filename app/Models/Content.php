@@ -44,4 +44,9 @@ class Content extends Model
     {
         return $this->hasMany(Option::class);
     }
+
+    public function userContents(): HasMany
+    {
+        return $this->hasMany(UserContent::class);
+    }
 }

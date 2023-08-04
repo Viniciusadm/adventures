@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Helpers\ContentHelper;
 use App\Models\Adventure;
+use App\Models\Content;
+use App\Models\UserContent;
 use App\Models\UserProgress;
 use Inertia\Response;
 
@@ -32,9 +34,17 @@ class SiteController extends Controller
 
         $contents = ContentHelper::get($adventure->id, $progress->content_id);
 
+        $messages = Content::query()
+            ->whereHas('userContents', function ($query) use ($adventure) {
+                $query->where('user_id', auth()->id())
+                    ->where('adventure_id', $adventure->id);
+            })
+            ->get();
+
         return inertia('Play', [
             'adventure' => $adventure,
             'contents' => $contents,
+            'messages' => $messages,
         ]);
     }
 }

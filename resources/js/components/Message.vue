@@ -9,6 +9,10 @@ const props = defineProps({
         type: Object as PropType<Content>,
         required: true,
     },
+    full: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const dropDown = ref(false);
@@ -38,7 +42,7 @@ const save = () => {
                 'bg-blue-200': content.type === 'self',
                 'bg-gray-300': content.type === 'narrator',
                 'bg-green-200': content.type === 'character',
-                'max-w-[80%]': ['self', 'character'].includes(content.type),
+                'max-w-[80%]': ['self', 'character'].includes(content.type) && !full,
         }"
         >
             <div class="flex">

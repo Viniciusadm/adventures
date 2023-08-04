@@ -15,9 +15,14 @@ const props = defineProps({
         type: Array as PropType<Content[]>,
         required: true,
     },
+    messages: {
+        type: Array as PropType<Content[]>,
+        required: true,
+    },
 });
 
 const menu = ref(false);
+const open_messages = ref(false);
 
 const data: Ref<Content[]> = ref(props.contents);
 
@@ -187,11 +192,33 @@ const easeInOutQuad = (t) => {
             </button>
             <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                @click="open_messages = true; menu = false"
+            >
+                Ver mensagens salvas
+            </button>
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 @click="save"
                 :disabled="saveLoad"
             >
                 Salvar
             </button>
+        </div>
+    </Modal>
+
+    <Modal
+        title="Mensagens salvas"
+        v-if="open_messages"
+        @close="open_messages = false"
+    >
+        <div class="flex flex-col gap-2">
+            <div
+                v-for="message in messages"
+                :key="message.id"
+                class="flex flex-col gap-2"
+            >
+                <Message :content="message" :full="true"/>
+            </div>
         </div>
     </Modal>
 </template>
