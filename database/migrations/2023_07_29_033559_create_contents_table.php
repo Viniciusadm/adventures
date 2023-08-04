@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('contents', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('adventure_id')->constrained();
-            $table->foreignId('next_content_id')->nullable()->constrained('contents');
+            $table->foreignId('adventure_id')->constrained()->onDelete('cascade');
+            $table->foreignId('next_content_id')->nullable()->constrained('contents')->onDelete('cascade');
             $table->boolean('has_options')->default(false);
             $table->longText('body');
             $table->enum('type', ['narrator', 'self', 'character']);
