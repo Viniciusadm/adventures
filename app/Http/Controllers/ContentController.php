@@ -23,6 +23,19 @@ class ContentController extends Controller
         return redirect()->route('play', ['slug' => $adventure->slug]);
     }
 
+    public function delete(int $adventureId, int $contentId): RedirectResponse
+    {
+        $adventure = Adventure::query()->where('id', $adventureId)->firstOrFail();
+
+        UserContent::query()->where([
+            'user_id' => auth()->id(),
+            'adventure_id' => $adventure->id,
+            'content_id' => $contentId,
+        ])->delete();
+
+        return redirect()->route('play', ['slug' => $adventure->slug]);
+    }
+
     public function contents(int $adventureId, int $contentId): JsonResponse
     {
         $adventure = Adventure::query()->where('id', $adventureId)->firstOrFail();

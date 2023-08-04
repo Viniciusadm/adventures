@@ -13,12 +13,25 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    type: {
+        type: String as PropType<"added" | "removed">,
+        default: "added",
+    },
 });
 
 const dropDown = ref(false);
 
 const save = () => {
     router.post(`/contents/${props.content?.adventure_id}/${props.content?.id}`, {}, {
+        preserveScroll: true,
+        onSuccess: () => {
+            dropDown.value = false;
+        },
+    });
+};
+
+const remove = () => {
+    router.delete(`/contents/${props.content?.adventure_id}/${props.content?.id}`, {}, {
         preserveScroll: true,
         onSuccess: () => {
             dropDown.value = false;
@@ -68,8 +81,18 @@ const save = () => {
                 type="button"
                 @click="save"
                 class="flex items-center justify-center"
+                v-if="type === 'added'"
             >
                 <i class="bi bi-bookmark-plus-fill me-2 text-blue-500"></i> Salvar mensagem
+            </button>
+
+            <button
+                type="button"
+                @click="remove"
+                class="flex items-center justify-center"
+                v-if="type === 'removed'"
+            >
+                <i class="bi bi-trash-fill me-2 text-red-500"></i> Remover mensagem
             </button>
         </Modal>
     </div>

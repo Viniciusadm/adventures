@@ -37,6 +37,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::prefix('contents')->group(function () {
             Route::post('/{adventureId}/{contentId}', [ContentController::class, 'save'])->name('contents.save');
+            Route::delete('/{adventureId}/{contentId}', [ContentController::class, 'delete'])->name('contents.delete');
         });
     });
 });

@@ -217,8 +217,18 @@ const easeInOutQuad = (t) => {
                 :key="message.id"
                 class="flex flex-col gap-2"
             >
-                <Message :content="message" :full="true"/>
+                <Message
+                    :content="message"
+                    :full="true"
+                    type="removed"
+                />
             </div>
+            <p
+                v-if="!messages.length"
+                class="text-center"
+            >
+                Nenhuma mensagem salva
+            </p>
         </div>
     </Modal>
 </template>
