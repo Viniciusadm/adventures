@@ -2,7 +2,7 @@
 import { PropType, ref } from "vue";
 import { Content } from "@/types";
 import { router } from "@inertiajs/vue3";
-import Modal from "@/components/Site/Modal.vue";
+import Modal from "@/components/site/Modal.vue";
 
 const props = defineProps({
     content: {

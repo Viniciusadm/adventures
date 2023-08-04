@@ -4,7 +4,7 @@ import { Adventure, Content, Option } from "@/types";
 import { Head, router } from '@inertiajs/vue3';
 import axios from "axios";
 import Message from "@/components/Message.vue";
-import Modal from "@/components/Site/Modal.vue";
+import Modal from "@/components/site/Modal.vue";
 
 const props = defineProps({
     adventure: {
