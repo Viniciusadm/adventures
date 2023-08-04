@@ -4,6 +4,7 @@ import { Adventure, Content, Option } from "@/types";
 import { Head, router } from '@inertiajs/vue3';
 import axios from "axios";
 import Message from "@/components/Message.vue";
+import Modal from "@/components/Site/Modal.vue";
 
 const props = defineProps({
     adventure: {
@@ -15,6 +16,8 @@ const props = defineProps({
         required: true,
     },
 });
+
+const menu = ref(false);
 
 const data: Ref<Content[]> = ref(props.contents);
 
@@ -83,6 +86,7 @@ const save = () => {
         preserveState: true,
         onFinish: () => {
             saveLoad.value = false;
+            menu.value = false;
         },
     });
 };
@@ -141,11 +145,10 @@ const easeInOutQuad = (t) => {
         v-if="!showOptions"
     >
         <button
-            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
-            @click="save"
-            :disabled="saveLoad"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
+            @click="menu = true"
         >
-            {{ saveLoad ? 'Salvando...' : 'Salvar' }}
+            Menu
         </button>
 
         <button
@@ -169,4 +172,26 @@ const easeInOutQuad = (t) => {
             {{ option.label }}
         </button>
     </div>
+
+    <Modal
+        title="Menu"
+        v-if="menu"
+        @close="menu = false"
+    >
+        <div class="flex flex-col gap-2">
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                @click="menu = false"
+            >
+                Continuar
+            </button>
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                @click="save"
+                :disabled="saveLoad"
+            >
+                Salvar
+            </button>
+        </div>
+    </Modal>
 </template>
