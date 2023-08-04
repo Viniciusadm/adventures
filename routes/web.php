@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdventureController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContentController;
@@ -40,4 +41,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::delete('/{adventureId}/{contentId}', [ContentController::class, 'delete'])->name('contents.delete');
         });
     });
+});
+
+Route::prefix('admin')->name('admin.')->middleware(['auth:sanctum', 'admin'])->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('index');
 });
