@@ -46,4 +46,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::prefix('admin')->name('admin.')->middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
     Route::get('/adventures', [AdminController::class, 'adventures'])->name('adventures');
+    Route::get('/adventures/edit/{slug}', [AdminController::class, 'adventure'])->name('adventures.edit');
 });

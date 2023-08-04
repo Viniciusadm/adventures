@@ -19,7 +19,7 @@ defineProps({
             v-for="adventure in adventures"
             :key="adventure.id"
             class="mb-4 text-start"
-            @click="router.visit(`/admin/edit/${adventure.slug}`)"
+            @click="router.visit(`/admin/adventures/edit/${adventure.slug}`)"
         >
             {{ adventure.title }}
         </button>
