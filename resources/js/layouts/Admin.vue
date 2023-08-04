@@ -18,7 +18,7 @@ const logout = () => {
             <div class="flex items-center">
                 <button
                     class="mr-4"
-                    @click="router.visit('/')"
+                    @click="router.visit('/admin')"
                 >
                     <i class="bi bi-house-door-fill"></i> Home
                 </button>
