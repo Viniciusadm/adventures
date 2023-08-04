@@ -37,6 +37,7 @@ class AdventureSeeder extends Seeder
         for ($i = 0; $i < $quantity; $i++) {
             $now = Content::factory()->create([
                 'adventure_id' => $adventureId,
+                'has_options' => $i === $quantity - 1,
             ]);
 
             $last->update([
@@ -84,6 +85,11 @@ class AdventureSeeder extends Seeder
         if ($option === 'content') {
             $this->addContent($adventureId, $contentId);
         } elseif ($option === 'option') {
+            Content::query()
+                ->where('id', $contentId)
+                ->update([
+                    'has_options' => true,
+                ]);
             $this->addOptions($adventureId, $contentId);
         }
     }

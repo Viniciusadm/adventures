@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $adventure_id
  * @property int $next_content_id
  * @property string $body
+ * @property boolean $has_options
  * @property Adventure $adventure
  * @property Content $nextContent
  * @property Option[] $options
@@ -28,6 +29,7 @@ class Content extends Model
         'next_content_id',
         'body',
         'type',
+        'has_options',
     ];
 
     public function adventure(): BelongsTo
